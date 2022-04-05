@@ -9,7 +9,7 @@ import {BusinessService} from "../../services/business.service";
   selector: 'app-business-details',
   template: `
     <ng-container *ngIf="business$ | async as business">
-      {{business.name}}
+      <app-business-form [businessDetails]="business"></app-business-form>
     </ng-container>
   `,
   styles: ['']

@@ -1,20 +1,22 @@
 import {NgModule} from "@angular/core";
-import {CepComponent} from "./cep.component";
+import {BusinessFormComponent} from "./business-form.component";
 import {CommonModule} from "@angular/common";
 import {MatFormFieldModule} from "@angular/material/form-field";
+import {CepModule} from "../cep/cep.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 
 
 @NgModule({
-  declarations: [CepComponent],
-  exports: [CepComponent],
+  declarations: [BusinessFormComponent],
+  exports: [BusinessFormComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,
-    FormsModule,
+    CepModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
+    FormsModule
   ]
 })
-export class CepModule { }
+export class BusinessFormModule { }
