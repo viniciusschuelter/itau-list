@@ -1,18 +1,30 @@
 import {Component} from "@angular/core";
-import {BusinessService} from "../../services/business.service";
-import {filter, Observable} from "rxjs";
+import {BusinessHttpService} from "../../services/business-http.service";
+import {filter, Observable, Subscription} from "rxjs";
 import {Router} from "@angular/router";
 import {BusinessInterface} from "../../models/business.model";
+import {BusinessService} from "../../services/business.service";
 
 
 @Component({
   selector: 'app-business',
   host: {class: 'block h-100 w-100'},
   template: `
-    <table class="w-100" mat-table [dataSource]="businessList$ | async">
+    <app-title>
+      <div>
+        <button mat-icon-button matTooltip="Criar Polo" matTooltipPosition="above" class="me-5"(click)="goToBusinessCreate()">
+          <mat-icon>add</mat-icon>
+        </button>
+        <mat-form-field appearance="outline">
+          <input [(ngModel)]="businessSearch" matInput placeholder="Pesquisar...">
+        </mat-form-field>
+      </div>
+    </app-title>
+
+    <table class="w-100" mat-table [dataSource]="(businessList$ | async) | search: 'name' : businessSearch">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Nome</th>
-        <td mat-cell *matCellDef="let business"> {{business.name}} </td>
+        <td mat-cell *matCellDef="let business"><b>{{business.name}}</b></td>
       </ng-container>
 
       <ng-container matColumnDef="business">
@@ -35,7 +47,7 @@ import {BusinessInterface} from "../../models/business.model";
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef> Ação</th>
         <td mat-cell *matCellDef="let business">
-          <button mat-icon-button (click)="goToBusinessDetails(business)">
+          <button mat-icon-button matTooltip="Editar Polo" matTooltipPosition="above" (click)="goToBusinessDetails(business)">
             <mat-icon>edit</mat-icon>
           </button>
         </td>
@@ -45,20 +57,44 @@ import {BusinessInterface} from "../../models/business.model";
       <tr mat-row *matRowDef="let row; columns: headersColumns;"></tr>
     </table>
   `,
-  styles: ['']
+  styles: [`
+    :host {
+      table {
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+    }
+  `]
 })
 export class BusinessComponent {
 
   headersColumns: string[] = ['name', 'business', 'valuation', 'situation', 'action'];
-  businessList$: Observable<any> = this.businessService.getAllBusiness().pipe(filter(_ => !!_));
+  businessList$: Observable<any> = this.businessService.business$.pipe(filter(_ => !!_));
+  subscriber: Subscription = new Subscription();
+  businessSearch = '';
 
   constructor(
+    private businessHttpService: BusinessHttpService,
     private businessService: BusinessService,
     private router: Router
   ) {
+    if (!this.businessService.getBusiness()?.length) {
+      this.businessServiceInit();
+    }
+  }
+
+  businessServiceInit(): void {
+    this.subscriber.add(
+      this.businessHttpService.getAllBusiness().subscribe((business: BusinessInterface[]) => {
+        this.businessService.setBusiness(business);
+      })
+    );
   }
 
   goToBusinessDetails(business: BusinessInterface): void {
     this.router.navigate(['/business-details/', business.id]);
+  }
+
+  goToBusinessCreate(): void {
+    this.router.navigateByUrl('/business-create');
   }
 }

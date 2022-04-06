@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, Input} from "@angular/core";
 
 
 @Component({
@@ -7,17 +7,32 @@ import {Component} from "@angular/core";
   template: `
     <div class="flex between">
       <div class="flex col">
-        <mat-card-title>title</mat-card-title>
-        <mat-card-subtitle>subtitle</mat-card-subtitle>
+        <h1>{{title}}</h1>
+        <h3>{{subtitle}}</h3>
       </div>
+      <ng-content></ng-content>
     </div>
   `,
   styles: [`
     :host {
       margin: 24px 0;
+
+      h1 {
+        font-size: 1.725rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+        letter-spacing: 2px;
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        letter-spacing: 1.5px;
+        font-weight: 300;
+      }
     }
   `]
 })
 export class TitleComponent {
-
+    @Input() title = 'Polos Itaú';
+    @Input() subtitle = 'confira abaixo alguns dos principais polos';
 }

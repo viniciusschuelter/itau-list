@@ -3,9 +3,9 @@ import {Component} from "@angular/core";
 
 @Component({
   selector: 'app-header',
-  host: {class: 'block h-100 w-100'},
+  host: {class: 'block h-100 w-100 border-bottom'},
   template: `
-    <mat-toolbar [style.height.px]="120" color="">
+    <mat-toolbar [style.height.px]="120" color="warn">
       <button mat-icon-button>
         <mat-icon>menu</mat-icon>
       </button>
@@ -22,7 +22,11 @@ import {Component} from "@angular/core";
       </div>
     </mat-toolbar>
   `,
-  styles: ['']
+  styles: [`
+    :host {
+      border-bottom: 4px solid #fb8c00;
+    }
+  `]
 })
 export class HeaderComponent {
 

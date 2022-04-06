@@ -1,45 +1,22 @@
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable, throwError} from 'rxjs';
-import {catchError, map} from 'rxjs/operators';
-import {environment} from "../../environments/environment";
+import {Injectable} from "@angular/core";
+import {filter} from "rxjs/operators";
+import {BehaviorSubject} from "rxjs";
 import {BusinessInterface} from "../models/business.model";
 
-@Injectable({
-  providedIn: 'root',
-})
+
+@Injectable({providedIn: 'root'})
 
 export class BusinessService {
-  url = environment.apiBase;
 
-  constructor(private http: HttpClient) {  }
+  private businessSubject = new BehaviorSubject<BusinessInterface[]>([]);
 
-  public getAllBusiness(): Observable<BusinessInterface[]> {
-    return this.http
-      .get<BusinessInterface[]>(`${this.url}/itau_teste`)
-      .pipe(
-        map((data: BusinessInterface[]) => data),
-        catchError(this.handleErrors)
-      );
+  public readonly business$ = this.businessSubject.asObservable().pipe(filter(data => !!data));
+
+  getBusiness(): BusinessInterface[] {
+    return this.businessSubject.getValue();
   }
 
-
-  public getBusinessById(businessId: string): Observable<BusinessInterface> {
-    return this.http
-      .get<BusinessInterface>(`${this.url}/itau_teste/${businessId}`)
-      .pipe(
-        map((data: BusinessInterface) => data),
-        catchError(this.handleErrors)
-      );
-  }
-
-  private handleErrors(error: HttpErrorResponse) {
-    if (error) {
-      return throwError(
-        error.error?.message ? error.error?.message : error.message
-      );
-    } else {
-      return throwError('Something wrong!');
-    }
+  setBusiness(business: BusinessInterface[]): void {
+    this.businessSubject.next(business);
   }
 }

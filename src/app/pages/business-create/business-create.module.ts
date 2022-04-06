@@ -1,5 +1,5 @@
 import {NgModule} from "@angular/core";
-import {BusinessDetailsComponent} from "./business-details.component";
+import {BusinessCreateComponent} from "./business-create.component";
 import {CommonModule} from "@angular/common";
 import {BusinessFormModule} from "../../components/business-form/business-form.module";
 import {TitleModule} from "../../layout/title/title.module";
@@ -7,8 +7,8 @@ import {MatButtonModule} from "@angular/material/button";
 
 
 @NgModule({
-  declarations: [BusinessDetailsComponent],
-  exports: [BusinessDetailsComponent],
+  declarations: [BusinessCreateComponent],
+  exports: [BusinessCreateComponent],
   imports: [
     CommonModule,
     BusinessFormModule,
@@ -16,4 +16,4 @@ import {MatButtonModule} from "@angular/material/button";
     MatButtonModule
   ]
 })
-export class BusinessDetailsModule { }
+export class BusinessCreateModule { }
