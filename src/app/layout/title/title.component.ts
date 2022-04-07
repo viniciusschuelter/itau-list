@@ -5,10 +5,10 @@ import {Component, Input} from "@angular/core";
   selector: 'app-title',
   host: {class: 'block h-100 w-100'},
   template: `
-    <div class="flex between">
-      <div class="flex col">
-        <h1>{{title}}</h1>
-        <h3>{{subtitle}}</h3>
+    <div class="flex between w-100">
+      <div class="flex col overflow-hidden">
+        <h1 class="text-truncate">{{title}}</h1>
+        <h3 class="text-truncate">{{subtitle}}</h3>
       </div>
       <ng-content></ng-content>
     </div>

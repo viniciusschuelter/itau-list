@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Route } from '@angular/router';
 import {ToastrModule} from "ngx-toastr";
+import {TranslateModule} from "@ngx-translate/core";
 
 const routes: Route[] = [
   {
@@ -23,6 +24,7 @@ const routes: Route[] = [
   imports: [
     RouterModule.forRoot(routes),
     ToastrModule.forRoot(),
+    TranslateModule.forRoot()
   ],
   exports: [RouterModule]
 })

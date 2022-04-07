@@ -46,6 +46,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .flex {
   display: flex;
+  flex-wrap: nowrap;
 
   &.center {
     justify-content: center;
@@ -85,3 +86,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .pb-0 {
    padding-bottom: 0 !important;
  }
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -11,6 +11,9 @@ import {MatInputModule} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
 import {SearchModule} from "../../pipes/search/search.module";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {SpliceModule} from "../../pipes/splice/splice.module";
+import {TranslateModule} from "@ngx-translate/core";
 
 
 @NgModule({
@@ -27,7 +30,10 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     MatInputModule,
     FormsModule,
     SearchModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatPaginatorModule,
+    SpliceModule,
+    TranslateModule
   ]
 })
 export class BusinessModule {

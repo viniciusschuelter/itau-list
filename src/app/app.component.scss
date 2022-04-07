@@ -1,4 +1,4 @@
-
+@import "./styles/responsive.mixings";
 
 :host {
   display: block;
@@ -11,9 +11,31 @@
     flex-direction: column;
     flex-grow: 1;
     position: relative;
+    overflow: hidden;
 
     .main-content {
+      max-width: 1320px;
       padding: 24px;
+      margin: auto;
+      width: 100%;
+
+      @include max-wd {
+        max-width: 1140px;
+      }
+
+      @include max-lg {
+        max-width: 960px;
+      }
+
+      @include max-md {
+        max-width: 720px;
+      }
+
+      @include max-sm {
+        width: 100%;
+        padding: 8px;
+      }
     }
+
   }
 }
